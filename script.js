@@ -1,11 +1,14 @@
 import vision from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3";
 const { FaceLandmarker, FilesetResolver, DrawingUtils } = vision;
+
 const demosSection = document.getElementById("demos");
-const videoWidth = 480;
+const imageBlendShapes = document.getElementById("image-blend-shapes");
+const videoBlendShapes = document.getElementById("video-blend-shapes");
 let faceLandmarker;
 let runningMode = "IMAGE";
 let enableWebcamButton;
 let webcamRunning = false;
+const videoWidth = 480;
 const video = document.getElementById("webcam");
 const canvasElement = document.getElementById("output_canvas");
 const canvasCtx = canvasElement.getContext("2d");
@@ -21,12 +24,9 @@ async function createFaceLandmarker() {
         runningMode,
         numFaces: 1
     });
-    if (demosSection) {
-        demosSection.classList.remove("invisible");
-    } else {
-        console.warn("Demos section not found");
-    }
+    demosSection.classList.remove("invisible");
 }
+
 createFaceLandmarker();
 
 function hasGetUserMedia() {
@@ -36,8 +36,7 @@ function hasGetUserMedia() {
 if (hasGetUserMedia()) {
     enableWebcamButton = document.getElementById("webcamButton");
     enableWebcamButton.addEventListener("click", enableCam);
-}
-else {
+} else {
     console.warn("getUserMedia() is not supported by your browser");
 }
 
@@ -49,8 +48,7 @@ function enableCam(event) {
     if (webcamRunning === true) {
         webcamRunning = false;
         enableWebcamButton.innerText = "ENABLE PREDICTIONS";
-    }
-    else {
+    } else {
         webcamRunning = true;
         enableWebcamButton.innerText = "DISABLE PREDICTIONS";
     }
@@ -82,20 +80,17 @@ async function predictWebcam() {
     let startTimeMs = performance.now();
     if (lastVideoTime !== video.currentTime) {
         lastVideoTime = video.currentTime;
-        // Updated face detection function
-        results = await faceLandmarker.detectFaces(video, startTimeMs);
+        results = faceLandmarker.detectForVideo(video, startTimeMs);
     }
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-    if (results && results.length > 0 && results[0].faceLandmarks) {
-        for (const landmarks of results[0].faceLandmarks) {
+    if (results.faceLandmarks) {
+        for (const landmarks of results.faceLandmarks) {
+            // Draw only the eye landmarks
             drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_RIGHT_EYE, { color: "#FF3030" });
             drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_LEFT_EYE, { color: "#30FF30" });
         }
     }
-    // Ensure videoBlendShapes exists before trying to update it
-    if (videoBlendShapes && results && results.length > 0) {
-        drawEyeBlendShapes(videoBlendShapes, results[0].faceBlendshapes);
-    }
+    drawEyeBlendShapes(videoBlendShapes, results.faceBlendshapes);
     if (webcamRunning === true) {
         window.requestAnimationFrame(predictWebcam);
     }

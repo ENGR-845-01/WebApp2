@@ -446,3 +446,619 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
+/* Styles */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  background: #fff;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+#message {
+  font-family: "helvatica", sans-serif;
+  font-size: 3rem;
+  text-align: center;
+}
+
+#sub-message {
+  font-size: 1.5em;
+  text-align: center;
+}
+
+#full-page-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  background: #000;
+}
+
+footer div:nth-of-type(1) {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+footer div:nth-of-type(2) {
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+}
+
+#warnings {
+  position: absolute;
+  z-index: 50;
+  height: 100vh;
+  width: 100vw;
+  background: #fff;
+}
+
+#warning-text {
+  width: 400px;
+  text-align: justify;
+  position: absolute;
+  top: 3em;
+  background: #fff;
+  padding: 1.5em;
+  left: calc(50vw - 200px);
+  box-shadow: 2px 1px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+#warning-text p {
+  position: relative;
+  line-height: 1.5em;
+}
+
+#warning-button {
+  display: block;
+  margin: 2em auto;
+  text-align: center;
+  background: #777;
+  color: #fff;
+  border: 0;
+  padding: 1em;
+  font-weight: bold;
+}
+
+.lds-ellipsis {
+  display: inline-block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  top: calc(50vh - 32px);
+  left: calc(50vw - 32px);
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 27px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 6px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 6px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 45px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(19px, 0);
+  }
+}
+
+/* Copyright 2023 The MediaPipe Authors.
+
+additions improvments by Aaron */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=PT+Serif:wght@400;700&family=Poppins:wght@400;600&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body{
+  background: #FAFAFA;
+}
+
+.main{
+  width: 980px;
+  max-width: 70%;
+  margin: 100px auto;
+  display:flex;
+  gap: 5px;
+
+}
+
+.item{
+
+  flex-basis: 50%;
+}
+
+.right-section{
+  padding-left: 30px;
+  padding-right: 50px;
+}
+.team-members{
+  max-width:70%;
+  width: 980px;
+  margin:0 auto;
+  display:flex;
+  flex-wrap: wrap;
+  JUSTIFY-CONTENT:SPACE-BETWEEN;
+  gap: 50px;
+}
+
+.team{
+
+  flex-grow: 1;
+
+}
+.member-1{
+  margin-bottom:95px;
+}
+.member-2{
+  margin-top: 95px;
+}
+.member-3{
+  margin-bottom:95px;
+}
+.member-4{
+  margin-bottom:95px;
+}
+.member-5{
+  margin-top:95px;
+}
+.member-6{
+  margin-bottom: 95px;
+}
+
+.main-title{
+  font-family: 'PT Serif', serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 48px;
+  letter-spacing: -0.045em;
+  margin-top: 12px;
+}
+
+.secondary-title{
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+  text-transform: uppercase;
+}
+
+.description{
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+img{
+  width: 250px;
+  max-width: 100%;
+}
+
+.name{
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.position{
+  font-family: 'PT Serif', serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: uppercase;
+  vertical-align: top;
+  writing-mode: vertical-rl;
+}
+
+.footer-text{
+  margin-top: 10%;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #4f4f4fa8;
+}
+
+.username{
+  font-weight:bold;
+}
+
+@media screen and (min-width : 300px) and (max-width : 600px) {
+  .main{
+    margin-top: 80px;
+    margin-bottom:50px;
+    max-width:100%;
+    display: block;
+  }
+  .main-title{
+    padding-left: 4%;
+    margin-bottom: 40px;
+  }
+  .right-section{
+    padding-left: 4%;
+  }
+  .description{
+    font-size:16px;
+  }
+  img{
+    width: 80%;
+  }
+  .name{
+    font-size:12px;
+    margin:0;
+  }
+  .position{
+    font-size:10px;
+  }
+  .team-members{
+    gap:unset;
+    max-width:98%;
+    padding: 5%
+  }
+  .team{
+    flex-basis:50%;
+  }
+  .member-1{
+    margin-bottom:0px;
+    padding-right:3%;
+  }
+  .member-2{
+    margin-top: 55px;
+    padding-left:3%;
+  }
+  .member-3{
+    margin-bottom:0px;
+    padding-right:3%;
+  }
+  .member-4{
+    margin-top:55px;
+    margin-bottom:0;
+    padding-left:3%;
+  }
+  .member-5{
+    margin-top:0px;
+    padding-right:3%;
+  }
+  .member-6{
+    margin-top: 55px;
+    padding-left:3%;
+  }
+  .footer-text{
+    font-size:12px;
+    margin-top: 100px;
+  }
+}
+
+@media screen and (min-width : 600px) and (max-width : 1024px) {
+  .main{
+    margin-top: 80px;
+    margin-bottom:50px;
+    max-width:90%;
+    display: block;
+  }
+  .main-title{
+    padding-left: 4%;
+    margin-bottom: 40px;
+  }
+  .right-section{
+    padding-left: 4%;
+    max-width: 90%;
+  }
+  .name{
+    font-size:14px;
+    margin:0;
+  }
+  .position{
+    font-size:12px;
+  }
+  img{
+    width:70%;
+  }
+  .team-members{
+    gap:unset;
+    max-width:98%;
+    padding: 7%
+  }
+  .team{
+    flex-basis:50%;
+  }
+  .member-1{
+    margin-bottom:0px;
+    padding-right:4%;
+  }
+  .member-2{
+    margin-top: 75px;
+    padding-left:4%;
+  }
+  .member-3{
+    margin-bottom:0px;
+    padding-right:4%;
+  }
+  .member-4{
+    margin-top:75px;
+    margin-bottom:0;
+    padding-left:4%;
+  }
+  .member-5{
+    margin-top:0px;
+    padding-right:4%;
+  }
+  .member-6{
+    margin-top: 75px;
+    padding-left:4%;
+  }
+  .footer-text{
+    font-size:12px;
+    margin-top: 100px;
+  }
+}
+
+@media screen and (min-width : 1026px) and (max-width : 1350px){
+  .main{
+    margin-top: 80px;
+    margin-bottom:50px;
+    max-width:80%;
+  }
+  .main-title{
+    padding-left: 4%;
+    margin-bottom: 40px;
+  }
+  .right-section{
+    padding-left: 4%;
+  }
+  .name{
+    font-size:14px;
+    margin:0;
+  }
+  .position{
+    font-size:12px;
+  }
+  img{
+    width:80%;
+  }
+  .team-members{
+    gap:unset;
+    max-width:98%;
+    padding: 3%;
+  }
+  .team{
+    flex-basis: 33.333%;
+  }
+}
+/* Copyright 2023 The MediaPipe Authors.
+
+additions improvments by Aaron */
+
+@use "@material";
+body {
+  font-family: helvetica, arial, sans-serif;
+  margin: 2em;
+  color: #3d3d3d;
+  --mdc-theme-primary: #4267B2; /* Facebook Blue */
+  --mdc-theme-on-primary: #ffffff; /* White */
+}
+
+h1 {
+  font-style: italic;
+  color: #ff6f00; /* Orange */
+}
+
+h2 {
+  clear: both;
+}
+
+em {
+  font-weight: bold;
+}
+
+
+section {
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+}
+
+header,
+footer {
+  clear: both;
+}
+
+.removed {
+  display: none;
+}
+
+.invisible {
+  opacity: 0.2;
+}
+
+.note {
+  font-style: italic;
+  font-size: 130%;
+}
+
+.videoView,
+.detectOnClick,
+.blend-shapes {
+  position: relative;
+  float: left;
+  width: 48%;
+  margin: 2% 1%;
+  cursor: pointer;
+}
+
+.videoView p,
+.detectOnClick p {
+  position: absolute;
+  padding: 5px;
+  background-color: #4267B2; /* Facebook Blue */
+  color: #fff;
+  border: 1px dashed rgba(255, 255, 255, 0.7);
+  z-index: 2;
+  font-size: 12px;
+  margin: 0;
+}
+
+.highlighter {
+  background: rgba(0, 255, 0, 0.25);
+  border: 1px dashed #fff;
+  z-index: 1;
+  position: absolute;
+}
+
+.canvas {
+  z-index: 1;
+  position: absolute;
+  pointer-events: none;
+}
+
+.output_canvas {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+}
+
+.detectOnClick {
+  z-index: 0;
+}
+
+.detectOnClick img {
+  width: 100%;
+}
+
+.blend-shapes-item {
+  display: flex;
+  align-items: center;
+  height: 20px;
+}
+
+.blend-shapes-label {
+  display: flex;
+  width: 120px;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 4px;
+}
+
+.blend-shapes-value {
+  display: flex;
+  height: 16px;
+  align-items: center;
+  background-color: #4267B2; /* Facebook Blue */
+}
+
+/* Navigation Bar Styles */
+nav {
+  background-color: #007f8b;
+  padding: 10px 0;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 10px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  text-decoration: underline;
+}
+#warnings {
+  background-color: #8ba7ea; /* Reducing visual impact by changing to light red background */
+  border: 1px solid #8ba7ea; /* Adding a border to the warning box */
+  border-radius: 5px; /* Rounding the corners for a softer look */
+  padding: 20px; /* Adding some padding to improve readability */
+  margin-bottom: 20px; /* Adding space between warning and other content */
+}
+
+#warning-text p {
+  margin-bottom: 10px; /* Adding space between each paragraph */
+}
+
+warning-button {
+  background-color: #8ba7ea; /* Red button color */
+  color: white; /* White text color */
+  border: none; /* Removing button border */
+  padding: 10px 20px; /* Adding padding to button */
+  border-radius: 5px; /* Rounding button corners */
+  cursor: pointer; /* Changing cursor to pointer on hover */
+}
+
+#warning-button:hover {
+  background-color: #c82333; /* Darker red color on hover */
+}
+
+video-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%; /* Increase the width of the container */
+  max-width: 600px;
+  border: 2px solid #ccc;
+  overflow: hidden;
+}
+
+
+

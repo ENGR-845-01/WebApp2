@@ -1,5 +1,3 @@
-// Copyright 2023 The MediaPipe Authors.
-// Additions and improvements by Aaron
 import vision from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3";
 const { FaceLandmarker, FilesetResolver, DrawingUtils } = vision;
 const demosSection = document.getElementById("demos");
@@ -23,7 +21,11 @@ async function createFaceLandmarker() {
         runningMode,
         numFaces: 1
     });
-    demosSection.classList.remove("invisible");
+    if (demosSection) {
+        demosSection.classList.remove("invisible");
+    } else {
+        console.warn("Demos section not found");
+    }
 }
 createFaceLandmarker();
 
@@ -80,23 +82,27 @@ async function predictWebcam() {
     let startTimeMs = performance.now();
     if (lastVideoTime !== video.currentTime) {
         lastVideoTime = video.currentTime;
-        results = await faceLandmarker.detectSingleFace(video, startTimeMs);
+        // Updated face detection function
+        results = await faceLandmarker.detectFaces(video, startTimeMs);
     }
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-    if (results && results.faceLandmarks) {
-        for (const landmarks of results.faceLandmarks) {
+    if (results && results.length > 0 && results[0].faceLandmarks) {
+        for (const landmarks of results[0].faceLandmarks) {
             drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_RIGHT_EYE, { color: "#FF3030" });
             drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_LEFT_EYE, { color: "#30FF30" });
         }
     }
-    drawEyeBlendShapes(videoBlendShapes, results.faceBlendshapes);
+    // Ensure videoBlendShapes exists before trying to update it
+    if (videoBlendShapes && results && results.length > 0) {
+        drawEyeBlendShapes(videoBlendShapes, results[0].faceBlendshapes);
+    }
     if (webcamRunning === true) {
         window.requestAnimationFrame(predictWebcam);
     }
 }
 
 function drawEyeBlendShapes(el, blendShapes) {
-    if (!blendShapes || !blendShapes.length) {
+    if (!blendShapes || blendShapes.length === 0) {
         return;
     }
     const eyeBlendShapes = blendShapes[0].categories.filter(shape => shape.categoryName === "Eyes");

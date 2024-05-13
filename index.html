@@ -4,46 +4,48 @@
   <meta charset="UTF-8">
   <title>Combined Page</title>
   <style>
-    /* CSS for the navigation */
-    nav ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-    }
+/* CSS for the navigation */
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
 
-    nav ul li {
-      display: inline;
-      margin-right: 20px;
-    }
+nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
 
-    nav ul li a {
-      text-decoration: none;
-      color: black;
-      font-weight: bold;
-    }
+nav ul li a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
 
-    nav ul li a:hover {
-      color: blue;
-    }
+nav ul li a:hover {
+  color: blue;
+}
 
-    /* CSS for the footer */
-    footer {
-      text-align: center;
-      margin-top: 50px;
-    }
+/* CSS for the footer */
+footer {
+  text-align: center;
+  margin-top: 50px;
+}
 
-    /* Additional CSS */
-    #video-container {
-      width: 100%;
-      height: auto;
-      margin: 20px auto;
-      position: relative;
-    }
+/* Additional CSS */
+#video-container {
+  width: 50%; /* Set width to 50% of the screen */
+  height: auto;
+  margin: 20px 0; /* Adjust margin as needed */
+  position: relative;
+  float: left; /* Float the video container to the left */
+}
 
-    #video-container canvas {
-      width: 10%;
-      height: auto;
-    }
+#video-container canvas {
+  width: 100%; /* Make the canvas width 100% of its parent */
+  height: auto;
+}
+
   </style>
 </head>
 <body onload="main()">

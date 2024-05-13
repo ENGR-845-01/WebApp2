@@ -3,16 +3,15 @@
 import vision from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3";
 const { FaceLandmarker, FilesetResolver, DrawingUtils } = vision;
 const demosSection = document.getElementById("demos");
-const imageBlendShapes = document.getElementById("image-blend-shapes");
-const videoBlendShapes = document.getElementById("video-blend-shapes");
+const videoWidth = 480;
 let faceLandmarker;
 let runningMode = "IMAGE";
 let enableWebcamButton;
 let webcamRunning = false;
-const videoWidth = 480;
-// Before we can use HandLandmarker class we must wait for it to finish
-// loading. Machine Learning models can be large and take a moment to
-// get everything needed to run.
+const video = document.getElementById("webcam");
+const canvasElement = document.getElementById("output_canvas");
+const canvasCtx = canvasElement.getContext("2d");
+
 async function createFaceLandmarker() {
     const filesetResolver = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm");
     faceLandmarker = await FaceLandmarker.createFromOptions(filesetResolver, {
@@ -27,18 +26,11 @@ async function createFaceLandmarker() {
     demosSection.classList.remove("invisible");
 }
 createFaceLandmarker();
-/********************************************************************
-// Demo 2: Continuously grab image from webcam stream and detect it.
-********************************************************************/
-const video = document.getElementById("webcam");
-const canvasElement = document.getElementById("output_canvas");
-const canvasCtx = canvasElement.getContext("2d");
-// Check if webcam access is supported.
+
 function hasGetUserMedia() {
     return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
 }
-// If webcam supported, add event listener to button for when user
-// wants to activate it.
+
 if (hasGetUserMedia()) {
     enableWebcamButton = document.getElementById("webcamButton");
     enableWebcamButton.addEventListener("click", enableCam);
@@ -46,7 +38,7 @@ if (hasGetUserMedia()) {
 else {
     console.warn("getUserMedia() is not supported by your browser");
 }
-// Enable the live webcam view and start detection.
+
 function enableCam(event) {
     if (!faceLandmarker) {
         console.log("Wait! faceLandmarker not loaded yet.");
@@ -60,19 +52,19 @@ function enableCam(event) {
         webcamRunning = true;
         enableWebcamButton.innerText = "DISABLE PREDICTIONS";
     }
-    // getUsermedia parameters.
     const constraints = {
         video: true
     };
-    // Activate the webcam stream.
     navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
         video.srcObject = stream;
         video.addEventListener("loadeddata", predictWebcam);
     });
 }
+
 let lastVideoTime = -1;
 let results = undefined;
 const drawingUtils = new DrawingUtils(canvasCtx);
+
 async function predictWebcam() {
     const radio = video.videoHeight / video.videoWidth;
     video.style.width = videoWidth + "px";
@@ -81,7 +73,6 @@ async function predictWebcam() {
     canvasElement.style.height = videoWidth * radio + "px";
     canvasElement.width = video.videoWidth;
     canvasElement.height = video.videoHeight;
-    // Now let's start detecting the stream.
     if (runningMode === "IMAGE") {
         runningMode = "VIDEO";
         await faceLandmarker.setOptions({ runningMode: runningMode });
@@ -91,31 +82,14 @@ async function predictWebcam() {
         lastVideoTime = video.currentTime;
         results = faceLandmarker.detectForVideo(video, startTimeMs);
     }
+    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     if (results.faceLandmarks) {
         for (const landmarks of results.faceLandmarks) {
-            // Draw only the eye landmarks
             drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_RIGHT_EYE, { color: "#FF3030" });
             drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_LEFT_EYE, { color: "#30FF30" });
         }
     }
-    drawBlendShapes(videoBlendShapes, results.faceBlendshapes);
-    // Call this function again to keep predicting when the browser is ready.
     if (webcamRunning === true) {
         window.requestAnimationFrame(predictWebcam);
     }
-}
-function drawBlendShapes(el, blendShapes) {
-    if (!blendShapes.length) {
-        return;
-    }
-    let htmlMaker = "";
-    blendShapes[0].categories.map((shape) => {
-        htmlMaker += `
-      <li class="blend-shapes-item">
-        <span class="blend-shapes-label">${shape.displayName || shape.categoryName}</span>
-        <span class="blend-shapes-value" style="width: calc(${+shape.score * 100}% - 120px)">${(+shape.score).toFixed(4)}</span>
-      </li>
-    `;
-    });
-    el.innerHTML = htmlMaker;
 }

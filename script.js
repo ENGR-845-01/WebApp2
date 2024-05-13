@@ -1,4 +1,4 @@
-/ Copyright 2023 The MediaPipe Authors.
+// Copyright 2023 The MediaPipe Authors.
 
 // Additions and improvements by Aaron
 

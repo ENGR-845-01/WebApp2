@@ -80,10 +80,10 @@ async function predictWebcam() {
     let startTimeMs = performance.now();
     if (lastVideoTime !== video.currentTime) {
         lastVideoTime = video.currentTime;
-        results = faceLandmarker.detectForVideo(video, startTimeMs);
+        results = await faceLandmarker.detectSingleFace(video, startTimeMs);
     }
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-    if (results.faceLandmarks) {
+    if (results && results.faceLandmarks) {
         for (const landmarks of results.faceLandmarks) {
             drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_RIGHT_EYE, { color: "#FF3030" });
             drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_LEFT_EYE, { color: "#30FF30" });
